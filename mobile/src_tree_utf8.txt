@@ -1,0 +1,96 @@
+﻿Folder PATH listing
+Volume serial number is C08E-0884
+C:\YEDEKLERRRRR\MASA▄ST▄\BARIS_HOCA_PROJE\MOBILE\SRC
++---config
+|       api.js
+|       
++---core
+|   +---components
+|   |       AppButton.js
+|   |       AppCard.js
+|   |       AppChip.js
+|   |       index.js
+|   |       
+|   +---hooks
+|   |       useSocket.js
+|   |       
+|   +---navigation
+|   |       AppNavigator.js
+|   |       
+|   +---services
+|   |       BaseService.js
+|   |       
+|   \---theme
+|           colors.js
+|           
++---features
+|   +---auth
+|   |   +---screens
+|   |   |       LoginScreen.js
+|   |   |       RegisterScreen.js
+|   |   |       
+|   |   \---services
+|   |           authService.js
+|   |           
+|   +---bid
+|   |   \---services
+|   |           bidService.js
+|   |           
+|   +---dashboard
+|   |   \---screens
+|   |           HomeScreen.js
+|   |           
+|   +---job
+|   |   +---screens
+|   |   |       JobCreateScreen.js
+|   |   |       JobDetailScreen.js
+|   |   |       JobEditScreen.js
+|   |   |       JobListScreen.js
+|   |   |       JobsScreen.js
+|   |   |       
+|   |   \---services
+|   |           jobService.js
+|   |           
+|   +---message
+|   |   +---screens
+|   |   |       ChatScreen.js
+|   |   |       MessagesScreen.js
+|   |   |       
+|   |   \---services
+|   |           messageService.js
+|   |           
+|   +---notification
+|   |   +---screens
+|   |   |       NotificationsScreen.js
+|   |   |       
+|   |   \---services
+|   |           notificationService.js
+|   |           
+|   +---project
+|   |   +---screens
+|   |   |       ProjectsScreen.js
+|   |   |       
+|   |   \---services
+|   |           projectService.js
+|   |           
+|   +---task
+|   |   \---screens
+|   |           TasksScreen.js
+|   |           
+|   \---user
+|       +---screens
+|       |       EditProfileScreen.js
+|       |       ProfileScreen.js
+|       |       
+|       \---services
+|               portfolioService.js
+|               userService.js
+|               
++---services
+|       BaseService.js
+|       
+\---utils
+        dateFormatter.js
+        jwtHelper.js
+        toast.js
+        

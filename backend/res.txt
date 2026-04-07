@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "success": true,
+  "message": "Kullan\u0131c\u0131 bilgileri",
+  "data": {
+    "_id": "69b4caeef1507472c1fd1903",
+    "ad": "Test",
+    "soyad": "User",
+    "email": "test_user_unique@example.com",
+    "sifre": "$2b$12$DFMjITAkbLtf3/zxBBFGcewsqBq32D78Kj5ABU1fvVfWIHLeaPryK",
+    "rol": "freelancer",
+    "olusturulma_tarihi": "2026-03-14T02:41:50.118000",
+    "aktif_mi": true,
+    "silindi_mi": false,
+    "aciklama": "test biyografi pythondan",
+    "bio": "test_bio",
+    "degistirilme_tarihi": "2026-03-14T20:41:56.867000",
+    "id": "69b4caeef1507472c1fd1903"
+  }
+}

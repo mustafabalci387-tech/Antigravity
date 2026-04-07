@@ -1,0 +1,8 @@
+{
+    "db_platform": "MongoDB Atlas",
+    "username": "collabflow_user",
+    "password": "collabflow123",
+    "cluster": "cluster0.mongodb.net",
+    "database_name": "collabflow_db",
+    "compass_connection_string": "mongodb+srv://collabflow_user:collabflow123@cluster0.mongodb.net/collabflow_db"
+}

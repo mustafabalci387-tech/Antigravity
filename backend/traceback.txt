@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\yedeklerrrrr\Masaüstü\baris_hoca_proje\backend\test_500.py", line 20, in run_test
+    res = await mgr.send_message(str(user1['_id']), str(user2['_id']), "Test mesaji")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\yedeklerrrrr\Masaüstü\baris_hoca_proje\backend\app\features\message\manager.py", line 28, in send_message
+    conv_entity = ConversationEntity(
+        participants=participants,
+    ...<2 lines>...
+        createdAt=now
+    )
+  File "C:\Users\mbrsb\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pydantic\main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ConversationEntity
+lastMessageAt
+  Input should be a valid string [type=string_type, input_value=datetime.datetime(2026, 3, 10, 0, 36, 48, 356192), input_type=datetime]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
