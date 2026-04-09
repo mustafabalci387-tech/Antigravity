@@ -22,7 +22,15 @@ class PaymentService extends BaseService {
      * @param {Object} paymentData - { ilan_id, freelancer_id, tutar, aciklama?, odeme_yontemi?, islem_notu? }
      */
     static async createPayment(paymentData) {
-        return await this.post("/payments", paymentData);
+        return await this.post("/payment/process", paymentData);
+    }
+
+    /**
+     * Sadece giriş yapan kullanıcının ödemelerini getirir (Dinamik)
+     * Backend: GET /api/payment/user-payments
+     */
+    static async getUserPayments() {
+        return await this.get("/payment/user-payments");
     }
 
     /**
@@ -81,7 +89,15 @@ class PaymentService extends BaseService {
      * Backend: DELETE /api/payments/{id}
      */
     static async deletePayment(paymentId) {
-        return await this.delete(`/payments/${paymentId}`);
+        return await this.delete(`/payment/${paymentId}`);
+    }
+
+    /**
+     * Kullanıcının tüm geçmiş ödemelerini temizle
+     * Backend: DELETE /api/payment/user-payments/clear
+     */
+    static async clearUserPayments() {
+        return await this.delete("/payment/user-payments/clear");
     }
 }
 

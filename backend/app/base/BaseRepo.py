@@ -66,3 +66,11 @@ class BaseRepository:
             {"$set": {"silindi_mi": True, "aktif_mi": False, "degistirilme_tarihi": datetime.utcnow()}}
         )
         return result.modified_count > 0
+
+    async def soft_delete_many(self, filters: dict) -> int:
+        """Hoca Kuralı: Soft Delete (Toplu)"""
+        result = await self.collection.update_many(
+            filters,
+            {"$set": {"silindi_mi": True, "aktif_mi": False, "degistirilme_tarihi": datetime.utcnow()}}
+        )
+        return result.modified_count

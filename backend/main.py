@@ -1,20 +1,8 @@
-"""
-main.py — FastAPI uygulamasının giriş noktası (entry point).
-
-Express.js server.js + app.js'in karşılığı.
-
-Bu dosya 4 iş yapar:
-  1. .env dosyasını yükler
-  2. FastAPI uygulamasını oluşturur (CORS dahil)
-  3. Router'ları bağlar
-  4. MongoDB bağlantısını yönetir (startup/shutdown)
-"""
-
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# .env dosyasını yükle (en üstte, diğer importlardan önce)
+# 1. ÖNCE ENV YÜKLENİR
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
@@ -38,55 +26,33 @@ from app.features.notification.controller import router as notification_router
 from app.features.payment.controller import router as payment_router
 from app.features.admin.controller import router as admin_router
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """
-    Uygulama yaşam döngüsü yönetimi.
-    Startup: MongoDB'ye bağlan
-    Shutdown: MongoDB bağlantısını kapat
-    """
-    # Startup
     await connect_db()
     yield
-    # Shutdown
     await close_db()
 
-
-# FastAPI uygulamasını oluştur
+# 2. KRİTİK NOKTA: ÖNCE APP OLUŞTURULUR (Bu satır yukarıda olmalıydı)
 app = FastAPI(
     title="CollabFlow API",
-    description="Freelance İş & Proje Yönetim Platformu — Backend API",
     version="1.0.0",
     lifespan=lifespan,
 )
 
-# ========================
-# CORS AYARLARI
-# ========================
-# Express.js app.use(cors()) karşılığı
-# Tüm bağlantılara izin ver (Geliştirme aşaması için)
+# 3. SONRA MIDDLEWARE EKLENİR (Çünkü artık 'app' tanımlı)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"], 
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
-
-# ========================
-# EXCEPTION HANDLERS
-# ========================
-# Express.js errorHandler middleware karşılığı
+# Hata yöneticileri
 app.add_exception_handler(ApiError, api_error_handler)
 app.add_exception_handler(Exception, generic_error_handler)
 
-# ========================
-# ROUTER'LARI BAĞLA
-# ========================
-# Express.js app.use('/api/auth', authRoutes) karşılığı
+# 4. ROUTER'LAR BAĞLANIR
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(job_router)
@@ -94,37 +60,18 @@ app.include_router(bid_router)
 app.include_router(message_router)
 app.include_router(portfolio_router)
 app.include_router(notification_router)
-app.include_router(payment_router)
+app.include_router(payment_router, prefix="/api")
 app.include_router(admin_router)
 
-
-# Kök endpoint — Sağlık kontrolü
 @app.get("/")
 async def root():
-    return {"message": "🚀 CollabFlow API çalışıyor", "version": "1.0.0"}
+    return {"message": "🚀 CollabFlow API çalışıyor"}
 
-
-# ========================
-# SOCKET.IO ENTEGRASYONU
-# ========================
-# Socket.IO uygulamasını doğrudan FastAPI mount ile bağlıyoruz (daha güvenilir)
 socket_app = socketio.ASGIApp(sio)
 app.mount("/socket.io", socket_app)
 
-# ========================
-# SUNUCUYU BAŞLAT
-# ========================
 if __name__ == "__main__":
     import uvicorn
-
-    PORT = int(os.getenv("PORT", 5000))
-    ENV = os.getenv("NODE_ENV", "development")
-
-    print(f"CollabFlow Server {PORT} portunda calisiyor ({ENV} modu)")
-
-    uvicorn.run(
-        "main:app",
-        host="0.0.0.0",
-        port=PORT,
-        reload=(ENV == "development"),
-    )
+    # Portu 8000 yapalım, frontend genelde buraya bakar
+    PORT = int(os.getenv("PORT", 8000)) 
+    uvicorn.run("main:app", host="127.0.0.1", port=PORT, reload=True)

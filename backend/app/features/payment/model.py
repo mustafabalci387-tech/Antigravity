@@ -1,29 +1,12 @@
+from pydantic import Field
 from typing import Optional
 from app.base.BaseModel import BaseEntity
 
-class PaymentEntity(BaseEntity):
-    """
-    Ödeme (Payment) Tablosu Modeli (Hoca Standartları).
-
-    BaseEntity'den miras alınan alanlar:
-        - id, ad, kisa_ad, aciklama
-        - etiketler, olusturulma_tarihi, degistirilme_tarihi
-        - aktif_mi, silindi_mi
-
-    Ödemeye özel alanlar:
-        - ilan_id         : Ödemenin bağlı olduğu iş ilanının ID'si
-        - isveren_id      : Ödemeyi yapan işverenin ID'si
-        - freelancer_id   : Ödemeyi alacak freelancer'ın ID'si
-        - tutar           : Ödeme tutarı (TL)
-        - odeme_durumu    : Pending | Completed | Rejected
-        - onay_durumu     : İş onay mekanizması durumu
-                            (beklemede | onaylandi | reddedildi)
-    """
-    ilan_id: str
-    isveren_id: str
-    freelancer_id: str
-    tutar: float
-    odeme_durumu: str = "Pending"        # Pending, Completed, Rejected
-    onay_durumu: str = "beklemede"       # beklemede, onaylandi, reddedildi
-    odeme_yontemi: Optional[str] = None  # kredi_karti, havale, dijital_cuzdan
-    islem_notu: Optional[str] = None     # Ödemeye ait ek not
+class PaymentModel(BaseEntity):
+    # BaseEntity'den id, ad, kisa_ad, aktif_mi, olusturulma_tarihi vb. miras alınır.
+    
+    kart_numarasi_maskeli: str = Field(..., description="Kartın sadece son 4 hanesi veya maskeli hali (örn: **** **** **** 1234)")
+    tutar: float = Field(..., description="Ödeme tutarı")
+    para_birimi: str = Field(default="TRY", description="Para birimi")
+    durum: str = Field(default="Bekliyor", description="Ödeme durumu: 'Bekliyor', 'Başarılı', 'Red'")
+    kullanici_id: Optional[str] = Field(None, description="Ödemeyi yapan kullanıcının ID'si")

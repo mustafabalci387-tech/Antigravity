@@ -17,11 +17,13 @@ def get_user_service():
 async def get_users(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500),
+    rol: str = Query(None, description="Role göre filtrele (admin, freelancer, client)"),
     current_user: dict = Depends(authorize("client", "freelancer", "admin")),
     user_service: UserService = Depends(get_user_service)
 ):
-    """Kullanıcıları listele (Tüm roller)."""
-    users = await user_service.list_users(skip=skip, limit=limit)
+    """Kullanıcıları listele (Tüm roller + Filtreleme)."""
+    filters = {"rol": rol} if rol else None
+    users = await user_service.list_users(skip=skip, limit=limit, filters=filters)
     return success_response("Kullanıcılar listelendi", {"users": users})
 
 @router.get("/{user_id}")
@@ -66,3 +68,18 @@ async def upload_avatar(
     avatar_url = await CloudinaryService.upload_image(file, folder="avatars")
     await user_service.update_user(str(current_user["id"]), {"avatar": avatar_url})
     return success_response("Avatar yüklendi", {"avatar_url": avatar_url})
+
+@router.delete("/{user_id}")
+async def delete_user(
+    user_id: str,
+    current_user: dict = Depends(authorize("admin")),
+    user_service: UserService = Depends(get_user_service)
+):
+    """Kullanıcıyı sil (Sadece Admin)."""
+    # Güvenlik Kontrolü: Admin kendini silemesin
+    if str(current_user["id"]) == user_id:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=400, detail="Kendi hesabınızı silemezsiniz.")
+        
+    await user_service.delete(user_id)
+    return success_response("Kullanıcı başarıyla silindi", None)

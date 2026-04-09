@@ -10,7 +10,7 @@ import axios from "axios";
 
 // Merkezi Axios Instance (FastAPI Backend'imize bağlanır)
 const api = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: "http://127.0.0.1:8000/api",
     timeout: 30000,
 });
 

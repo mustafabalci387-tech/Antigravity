@@ -79,6 +79,21 @@ export default function AdminDashboardPage() {
         }
     };
 
+    // ── KULLANICI SİLME FONKSİYONU ──
+    const handleKullaniciSil = async (userId) => {
+        if (!window.confirm("Bu kullanıcıyı silmek istediğinize emin misiniz?")) return;
+
+        try {
+            await BaseService.delete(`/users/${userId}`);
+            // Tablodan sil
+            setKullanicilar(prev => prev.filter(k => (k.id || k._id) !== userId));
+            alert("Kullanıcı başarıyla silindi.");
+        } catch (err) {
+            console.error("[Admin] Kullanıcı silme hatası:", err);
+            alert(err?.response?.data?.message || "Kullanıcı silinirken hata oluştu.");
+        }
+    };
+
     // ── DURUM YÖNETİMİ (Yükleniyor) ──
     if (loading) {
         return (
@@ -268,17 +283,27 @@ export default function AdminDashboardPage() {
                                                         </select>
                                                     </td>
                                                     <td className="p-4 text-center">
-                                                        <button
-                                                            onClick={() => handleRolDegistir(kulId, secilenRol)}
-                                                            disabled={!rolDegisti || rolGuncelleLoading === kulId}
-                                                            className={`px-5 py-2 rounded-xl text-xs font-black transition-all ${
-                                                                rolDegisti
-                                                                    ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-200 cursor-pointer"
-                                                                    : "bg-gray-100 text-gray-300 cursor-not-allowed"
-                                                            }`}
-                                                        >
-                                                            {rolGuncelleLoading === kulId ? "⏳ Kaydediliyor..." : "Kaydet"}
-                                                        </button>
+                                                        <div className="flex items-center justify-center gap-2">
+                                                            <button
+                                                                onClick={() => handleRolDegistir(kulId, secilenRol)}
+                                                                disabled={!rolDegisti || rolGuncelleLoading === kulId}
+                                                                className={`px-5 py-2 rounded-xl text-xs font-black transition-all ${
+                                                                    rolDegisti
+                                                                        ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-200 cursor-pointer"
+                                                                        : "bg-gray-100 text-gray-300 cursor-not-allowed"
+                                                                }`}
+                                                            >
+                                                                {rolGuncelleLoading === kulId ? "⏳ Kaydediliyor..." : "Kaydet"}
+                                                            </button>
+
+                                                            <button
+                                                                onClick={() => handleKullaniciSil(kulId)}
+                                                                className="w-9 h-9 flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-sm shadow-red-100"
+                                                                title="Kullanıcıyı Sil"
+                                                            >
+                                                                🗑️
+                                                            </button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             );
