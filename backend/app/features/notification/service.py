@@ -25,3 +25,9 @@ class NotificationService(BaseService):
 
     async def mark_all_as_read(self, user_id: str) -> int:
         return await self.repository.mark_all_as_read(user_id)
+
+    async def delete_notification(self, notification_id: str) -> bool:
+        return await self.repository.soft_delete(notification_id)
+
+    async def clear_all_notifications(self, user_id: str) -> int:
+        return await self.repository.clear_all(user_id)

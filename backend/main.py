@@ -72,6 +72,7 @@ app.mount("/socket.io", socket_app)
 
 if __name__ == "__main__":
     import uvicorn
-    # Portu 8000 yapalım, frontend genelde buraya bakar
-    PORT = int(os.getenv("PORT", 8000)) 
-    uvicorn.run("main:app", host="127.0.0.1", port=PORT, reload=True)
+    # Port 5000: mobil uygulama (BlueStacks) 10.0.2.2:5000 adresine bağlanır
+    # Host 0.0.0.0: dışarıdan (emülatör/telefon) gelen bağlantıları kabul eder
+    PORT = int(os.getenv("PORT", 5000)) 
+    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=True)

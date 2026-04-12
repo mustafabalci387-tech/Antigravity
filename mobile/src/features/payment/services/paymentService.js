@@ -1,52 +1,48 @@
 /**
  * paymentService.js — Ödeme (Payment) API Servisi (Mobile)
- * Backend /api/payments endpoint'lerine istek atar.
+ * Backend /api/payment endpoint'lerine istek atar.
+ * 
+ * Backend Endpoint'leri:
+ *   GET    /api/payment/user-payments      → JWT'den kullanıcıyı tanır, ödeme geçmişini döner
+ *   POST   /api/payment/process            → Yeni ödeme oluşturur
+ *   DELETE /api/payment/user-payments/clear → Tüm ödeme geçmişini siler
+ *   DELETE /api/payment/{payment_id}       → Tek ödeme siler
  */
 import BaseService from '../../../base/services/BaseService';
 
 class PaymentService extends BaseService {
+    /**
+     * Giriş yapmış kullanıcının ödeme geçmişini getirir.
+     * Backend JWT token'dan kullanıcıyı tanır, ayrıca userId göndermeye gerek yok.
+     */
+    static async getUserPayments() {
+        return await this.get("/payment/user-payments");
+    }
+
+    /** Ödeme işlemi başlatır */
     static async createPayment(paymentData) {
-        return await this.post("/payments", paymentData);
+        return await this.post("/payment/process", paymentData);
     }
 
-    static async approvePayment(paymentId) {
-        return await this.patch(`/payments/${paymentId}/approve`);
-    }
-
-    static async rejectPayment(paymentId) {
-        return await this.patch(`/payments/${paymentId}/reject`);
-    }
-
-    static async getPaymentsByIsveren(isverenId, page = 1, limit = 20) {
-        return await this.get(`/payments/isveren/${isverenId}`, { page, limit });
-    }
-
-    static async getPaymentsByFreelancer(freelancerId, page = 1, limit = 20) {
-        return await this.get(`/payments/freelancer/${freelancerId}`, { page, limit });
-    }
-
-    static async getPaymentsByIlan(ilanId) {
-        return await this.get(`/payments/ilan/${ilanId}`);
-    }
-
-    static async getPaymentById(paymentId) {
-        return await this.get(`/payments/${paymentId}`);
-    }
-
+    /** Tek ödeme kaydını siler */
     static async deletePayment(paymentId) {
-        return await this.delete(`/payments/${paymentId}`);
+        return await this.delete(`/payment/${paymentId}`);
+    }
+
+    /** Tüm ödeme geçmişini temizler */
+    static async clearAllPayments() {
+        return await this.delete("/payment/user-payments/clear");
     }
 }
 
 const paymentService = {
+    getUserPayments: () => PaymentService.getUserPayments(),
     createPayment: (data) => PaymentService.createPayment(data),
-    approvePayment: (id) => PaymentService.approvePayment(id),
-    rejectPayment: (id) => PaymentService.rejectPayment(id),
-    getPaymentsByIsveren: (id, page, limit) => PaymentService.getPaymentsByIsveren(id, page, limit),
-    getPaymentsByFreelancer: (id, page, limit) => PaymentService.getPaymentsByFreelancer(id, page, limit),
-    getPaymentsByIlan: (id) => PaymentService.getPaymentsByIlan(id),
-    getPaymentById: (id) => PaymentService.getPaymentById(id),
     deletePayment: (id) => PaymentService.deletePayment(id),
+    clearAllPayments: () => PaymentService.clearAllPayments(),
+    // Geriye uyumluluk: eski fonksiyon isimleri → yeni endpoint'e yönlendir
+    getPaymentsByIsveren: () => PaymentService.getUserPayments(),
+    getPaymentsByFreelancer: () => PaymentService.getUserPayments(),
 };
 
 export default paymentService;

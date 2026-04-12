@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   RefreshControl,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import NotificationService from '../services/notificationService';
@@ -77,25 +78,78 @@ export default function NotificationsScreen() {
     }
   };
 
+  const deleteNotification = async (id) => {
+    try {
+      await NotificationService.deleteNotification(id);
+      setNotifications(prev => prev.filter(n => (n.id || n._id) !== id));
+      showToast('Bildirim silindi', 'success');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const clearAllNotifications = () => {
+    Alert.alert(
+      'Tümünü Sil',
+      'Tüm bildirimleri silmek istediğinize emin misiniz?',
+      [
+        { text: 'İptal', style: 'cancel' },
+        {
+          text: 'Sil',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await NotificationService.clearAllNotifications();
+              setNotifications([]);
+              showToast('Tüm bildirimler silindi', 'success');
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+      ]
+    );
+  };
+
+  const confirmDelete = (id) => {
+    Alert.alert(
+      'Bildirimi Sil',
+      'Bu bildirimi silmek istediğinize emin misiniz?',
+      [
+        { text: 'İptal', style: 'cancel' },
+        { text: 'Sil', style: 'destructive', onPress: () => deleteNotification(id) }
+      ]
+    );
+  };
+
   const renderItem = ({ item }) => {
     const isUnread = !item.okundu_mu;
+    const itemId = item.id || item._id;
 
     return (
-      <TouchableOpacity
-        style={[styles.card, isUnread ? styles.unreadCard : styles.readCard]}
-        onPress={() => isUnread && markAsRead(item.id || item._id)}
-        disabled={!isUnread}
-      >
-        <View style={styles.cardHeader}>
-          <Text style={[styles.message, isUnread && styles.unreadText]}>
-            {item.mesaj}
+      <View style={[styles.card, isUnread ? styles.unreadCard : styles.readCard]}>
+        <TouchableOpacity
+          style={styles.cardContent}
+          onPress={() => isUnread && markAsRead(itemId)}
+          disabled={!isUnread}
+        >
+          <View style={styles.cardHeader}>
+            <Text style={[styles.message, isUnread && styles.unreadText]}>
+              {item.mesaj}
+            </Text>
+            {isUnread && <View style={styles.unreadDot} />}
+          </View>
+          <Text style={styles.date}>
+            {formatDate ? formatDate(item.olusturulma_tarihi, true) : "Yeni"}
           </Text>
-          {isUnread && <View style={styles.unreadDot} />}
-        </View>
-        <Text style={styles.date}>
-          {formatDate ? formatDate(item.olusturulma_tarihi, true) : "Yeni"}
-        </Text>
-      </TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => confirmDelete(itemId)}
+        >
+          <Text style={styles.deleteButtonText}>🗑️</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -111,11 +165,18 @@ export default function NotificationsScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Bildirimler</Text>
-        {notifications.some(n => !n.okundu_mu) && (
-          <TouchableOpacity onPress={markAllAsRead}>
-            <Text style={styles.markAllText}>Tümünü Oku</Text>
-          </TouchableOpacity>
-        )}
+        <View style={styles.headerActions}>
+          {notifications.some(n => !n.okundu_mu) && (
+            <TouchableOpacity onPress={markAllAsRead}>
+              <Text style={styles.markAllText}>Tümünü Oku</Text>
+            </TouchableOpacity>
+          )}
+          {notifications.length > 0 && (
+            <TouchableOpacity onPress={clearAllNotifications}>
+              <Text style={styles.clearAllText}>Tümünü Sil</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
       <FlatList
@@ -141,10 +202,13 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F9FAFB' },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingTop: 50, paddingBottom: 8 },
+  headerActions: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   title: { fontSize: 24, fontWeight: 'bold', color: '#1F2937' },
   markAllText: { color: '#4F46E5', fontWeight: '600', fontSize: 14 },
+  clearAllText: { color: '#EF4444', fontWeight: '600', fontSize: 14 },
   listContent: { padding: 16 },
-  card: { padding: 16, borderRadius: 12, marginBottom: 12, elevation: 2, borderWidth: 1 },
+  card: { flexDirection: 'row', alignItems: 'center', borderRadius: 12, marginBottom: 12, elevation: 2, borderWidth: 1 },
+  cardContent: { flex: 1, padding: 16 },
   unreadCard: { backgroundColor: '#EEF2FF', borderColor: '#E0E7FF' },
   readCard: { backgroundColor: '#FFFFFF', borderColor: '#F3F4F6' },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 },
@@ -152,6 +216,8 @@ const styles = StyleSheet.create({
   unreadText: { fontWeight: '700', color: '#111827' },
   unreadDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#EF4444', marginTop: 4 },
   date: { fontSize: 11, color: '#6B7280' },
+  deleteButton: { paddingHorizontal: 12, paddingVertical: 16, justifyContent: 'center', alignItems: 'center' },
+  deleteButtonText: { fontSize: 18 },
   emptyContainer: { padding: 32, alignItems: 'center' },
   emptyText: { color: '#9CA3AF', fontSize: 16 }
 });

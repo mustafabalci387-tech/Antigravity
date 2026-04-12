@@ -147,6 +147,30 @@ export default function AdminDashboardScreen() {
         }
     };
 
+    // ── KULLANICI SİLME FONKSİYONU ──
+    const handleKullaniciSil = (kulId, kulAd) => {
+        Alert.alert(
+            'Kullanıcıyı Sil',
+            `"${kulAd}" adlı kullanıcıyı silmek istediğinize emin misiniz?\nBu işlem geri alınamaz.`,
+            [
+                { text: 'İptal', style: 'cancel' },
+                {
+                    text: 'Sil',
+                    style: 'destructive',
+                    onPress: async () => {
+                        try {
+                            await BaseService.delete(`/users/${kulId}`);
+                            setKullanicilar(prev => prev.filter(k => (k.id || k._id) !== kulId));
+                            Alert.alert('Başarılı 🗑️', `"${kulAd}" kullanıcısı silindi.`);
+                        } catch (err) {
+                            Alert.alert('Hata', err?.response?.data?.detail || 'Kullanıcı silinirken hata oluştu.');
+                        }
+                    }
+                }
+            ]
+        );
+    };
+
     if (loading && !refreshing) {
         return (
             <View style={styles.centerContainer}>
@@ -293,6 +317,13 @@ export default function AdminDashboardScreen() {
                                     <Text style={styles.yetkilendirmeAd}>{kul.ad} {kul.soyad}</Text>
                                     <Text style={styles.yetkilendirmeEmail}>{kul.email}</Text>
                                 </View>
+                                <TouchableOpacity
+                                    onPress={() => handleKullaniciSil(kulId, `${kul.ad} ${kul.soyad}`)}
+                                    style={styles.silButon}
+                                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                                >
+                                    <Text style={styles.silButonText}>🗑️</Text>
+                                </TouchableOpacity>
                             </View>
                             <View style={styles.rolButonlari}>
                                 {['freelancer', 'client', 'admin'].map(rol => (
@@ -398,6 +429,8 @@ const styles = StyleSheet.create({
     yetkilendirmeBilgi: { flex: 1 },
     yetkilendirmeAd: { fontSize: 14, fontWeight: '800', color: '#1F2937' },
     yetkilendirmeEmail: { fontSize: 12, color: '#9CA3AF', marginTop: 2 },
+    silButon: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#FEF2F2', justifyContent: 'center', alignItems: 'center', marginLeft: 8 },
+    silButonText: { fontSize: 16 },
     rolButonlari: { flexDirection: 'row', gap: 6, marginBottom: 8 },
     rolButon: { flex: 1, paddingVertical: 8, paddingHorizontal: 4, borderRadius: 10, backgroundColor: '#F3F4F6', alignItems: 'center' },
     rolButonAktif: { backgroundColor: '#6366f1' },

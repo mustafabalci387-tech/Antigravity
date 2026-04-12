@@ -52,6 +52,25 @@ export default function NotificationsPage() {
         }
     };
 
+    const handleDeleteNotification = async (id) => {
+        try {
+            await NotificationService.deleteNotification(id);
+            setNotifications(prev => prev.filter(n => (n.id || n._id) !== id));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleClearAll = async () => {
+        if (!confirm('Tüm bildirimleri silmek istediğinize emin misiniz?')) return;
+        try {
+            await NotificationService.clearAllNotifications();
+            setNotifications([]);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     if (!user) return null;
 
     return (
@@ -82,12 +101,22 @@ export default function NotificationsPage() {
             <main className="max-w-3xl mx-auto w-full px-4 py-8 flex-1">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold text-gray-800">Bildirimleriniz</h1>
-                    <button 
-                        onClick={handleMarkAllAsRead}
-                        className="text-indigo-600 text-sm font-semibold hover:underline"
-                    >
-                        Tümünü Okundu İşaretle
-                    </button>
+                    <div className="flex items-center gap-3">
+                        <button 
+                            onClick={handleMarkAllAsRead}
+                            className="text-indigo-600 text-sm font-semibold hover:underline"
+                        >
+                            Tümünü Okundu İşaretle
+                        </button>
+                        {notifications.length > 0 && (
+                            <button 
+                                onClick={handleClearAll}
+                                className="text-red-500 text-sm font-semibold hover:underline"
+                            >
+                                Tümünü Sil
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 <div className="bg-white shadow-sm rounded-xl border border-gray-100 divide-y divide-gray-50">
@@ -107,14 +136,23 @@ export default function NotificationsPage() {
                                         {formatDate(notif.olusturulma_tarihi, true)}
                                     </small>
                                 </div>
-                                {!notif.okundu_mu && (
+                                <div className="flex items-center gap-2 ml-4">
+                                    {!notif.okundu_mu && (
+                                        <button 
+                                            onClick={() => handleMarkAsRead(notif.id || notif._id)}
+                                            className="bg-white border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-gray-50"
+                                        >
+                                            Okundu
+                                        </button>
+                                    )}
                                     <button 
-                                        onClick={() => handleMarkAsRead(notif.id || notif._id)}
-                                        className="ml-4 bg-white border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-gray-50"
+                                        onClick={() => handleDeleteNotification(notif.id || notif._id)}
+                                        className="bg-white border border-red-200 text-red-500 px-2.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-red-50 transition-colors"
+                                        title="Bildirimi Sil"
                                     >
-                                        Okundu
+                                        🗑️
                                     </button>
-                                )}
+                                </div>
                             </div>
                         ))
                     ) : (

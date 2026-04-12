@@ -25,3 +25,11 @@ class NotificationRepository(BaseRepository):
             {"$set": {"okundu_mu": True}}
         )
         return result.modified_count
+
+    async def clear_all(self, user_id: str):
+        from datetime import datetime
+        result = await self.collection.update_many(
+            {"user_id": str(user_id), "silindi_mi": False},
+            {"$set": {"silindi_mi": True, "aktif_mi": False, "degistirilme_tarihi": datetime.utcnow()}}
+        )
+        return result.modified_count
