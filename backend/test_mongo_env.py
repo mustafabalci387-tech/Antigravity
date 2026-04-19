@@ -3,11 +3,12 @@ from pymongo import MongoClient
 import certifi
 
 def test_connection():
-    # .env dosyasındaki ilk satırı çekip temizliyoruz
+    # .env dosyasındaki satırları okuyoruz
     with open(".env", "r", encoding="utf-8") as f:
-        env_line = f.readline().strip()
-        # Baştaki MONGODB_URL= kısmını atıyoruz
-        uri = env_line.replace("MONGODB_URL=", "")
+        for line in f:
+            if line.startswith("MONGO_URI="):
+                uri = line.strip().replace("MONGO_URI=", "")
+                break
     
     print(f"Denenecek URI: {uri}")
         
