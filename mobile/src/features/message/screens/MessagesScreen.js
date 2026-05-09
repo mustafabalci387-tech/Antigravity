@@ -31,7 +31,7 @@ export default function MessagesScreen({ navigation }) {
   const loadAllUsers = async () => {
     try {
       const res = await userService.getAll();
-      // BaseService zaten response.data?.data ayıklamasını yapıyor (backend: {"users": [...]})
+      // ApiService zaten response.data?.data ayıklamasını yapıyor (backend: {"users": [...]})
       setAllUsers(res?.users || (Array.isArray(res) ? res : []));
     } catch (e) { console.error('Kullanıcılar yüklenemedi:', e); }
   };

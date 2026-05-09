@@ -8,9 +8,9 @@
  *   DELETE /api/payment/user-payments/clear → Tüm ödeme geçmişini siler
  *   DELETE /api/payment/{payment_id}       → Tek ödeme siler
  */
-import BaseService from '../../../base/services/BaseService';
+import ApiService from '../../../base/services/ApiService';
 
-class PaymentService extends BaseService {
+class PaymentService extends ApiService {
     /**
      * Giriş yapmış kullanıcının ödeme geçmişini getirir.
      * Backend JWT token'dan kullanıcıyı tanır, ayrıca userId göndermeye gerek yok.

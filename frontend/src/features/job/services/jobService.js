@@ -1,5 +1,5 @@
-import BaseService from "../../../base/services/BaseService";
-class JobService extends BaseService {
+import ApiService from "../../../base/services/ApiService";
+class JobService extends ApiService {
     /**
      * İlanları listele (sayfalama ve filtre parametreleriyle)
      * @param {Object} params - { page, limit, sort, is_veren_id vb. }

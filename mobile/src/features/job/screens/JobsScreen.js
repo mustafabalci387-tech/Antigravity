@@ -47,7 +47,7 @@ export default function JobsScreen() {
       }
 
       const data = await jobService.getAll(params);
-      // BaseService zaten response.data?.data ayıklamasını yaptığı için doğrudan data.jobs'a bakıyoruz
+      // ApiService zaten response.data?.data ayıklamasını yaptığı için doğrudan data.jobs'a bakıyoruz
       if (data && data.jobs) {
         setJobs(data.jobs || []);
       } else if (Array.isArray(data)) {

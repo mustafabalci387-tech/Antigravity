@@ -1,12 +1,12 @@
-import BaseRepo from '@/src/base/BaseRepo';
-import BaseService from '@/src/base/services/BaseService';
+import DataFetcher from '@/src/base/DataFetcher';
+import ApiService from '@/src/base/services/ApiService';
 
 /**
  * PaymentRepo - Ödeme Veri Erişim Katmanı
  * Backend API (FastAPI) ile fiziksel iletişimi sağlar.
- * BaseRepo'yu miras alarak DRY ilkesine uyum sağlar.
+ * DataFetcher'u miras alarak DRY ilkesine uyum sağlar.
  */
-export default class PaymentRepo extends BaseRepo {
+export default class PaymentRepo extends DataFetcher {
   constructor() {
     super();
   }
@@ -17,10 +17,10 @@ export default class PaymentRepo extends BaseRepo {
    * @returns {Promise<Object>} Backend'den dönen PaymentResponse verisi.
    */
   async process(data) {
-    // Merkezi BaseService kullanarak POST isteği atılır.
-    // Content-Type ve BaseURL ayarları merkezi yapılandırmada (api.js / BaseService.js) yapılmıştır.
+    // Merkezi ApiService kullanarak POST isteği atılır.
+    // Content-Type ve BaseURL ayarları merkezi yapılandırmada (api.js / ApiService.js) yapılmıştır.
     try {
-      return await BaseService.post('/payment/process', data);
+      return await ApiService.post('/payment/process', data);
     } catch (error) {
       console.error("PaymentRepo process hatası:", error);
       throw error;

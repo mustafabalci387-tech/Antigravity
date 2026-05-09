@@ -7,8 +7,8 @@
  * → Login, Register, Logout, getCurrentUser işlemleri.
  */
 
-import BaseService from "../../../base/services/BaseService";
-class AuthService extends BaseService {
+import ApiService from "../../../base/services/ApiService";
+class AuthService extends ApiService {
     // Kayıt ol
     static async register(data) {
         const responseData = await this.post("/auth/register", data);

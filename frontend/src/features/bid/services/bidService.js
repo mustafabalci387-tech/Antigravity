@@ -2,9 +2,9 @@
  * bidService.js — Teklif (Bidding) API Servisi
  * Backend /api/bids endpoint'lerine istek atar.
  */
-import BaseService from "./BaseService";
+import ApiService from "./ApiService";
 
-class BidService extends BaseService {
+class BidService extends ApiService {
     /**
      * Yeni teklif oluştur (Freelancer)
      */

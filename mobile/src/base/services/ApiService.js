@@ -1,12 +1,12 @@
 import api from "../../config/api";
 
-class BaseService {
+class ApiService {
     static async get(url, params = {}) {
         try {
             const response = await api.get(url, { params });
             return response.data?.data || response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -16,7 +16,7 @@ class BaseService {
             const response = await api.post(url, data, config);
             return response.data?.data || response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -26,7 +26,7 @@ class BaseService {
             const response = await api.put(url, data, config);
             return response.data?.data || response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -36,7 +36,7 @@ class BaseService {
             const response = await api.patch(url, data, config);
             return response.data?.data || response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -46,17 +46,17 @@ class BaseService {
             const response = await api.delete(url, config);
             return response.data?.data || response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
 
     static handleError(error) {
         console.error(
-            "[Mobile BaseService Error]:",
+            "[Mobile ApiService Error]:",
             error?.response?.data || error.message
         );
     }
 }
 
-export default BaseService;
+export default ApiService;

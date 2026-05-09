@@ -1,6 +1,6 @@
-import BaseService from "../../../base/services/BaseService";
+import ApiService from "../../../base/services/ApiService";
 
-class NotificationService extends BaseService {
+class NotificationService extends ApiService {
     static async getMyNotifications() {
         return await this.get("/notifications");
     }

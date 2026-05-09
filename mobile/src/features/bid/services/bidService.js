@@ -2,9 +2,9 @@
  * bidService.js — Teklif (Bidding) API Servisi
  * Backend /api/bids endpoint'lerine istek atar.
  */
-import BaseService from '../../../base/services/BaseService';
+import ApiService from '../../../base/services/ApiService';
 
-class BidService extends BaseService {
+class BidService extends ApiService {
     static async createBid(bidData) {
         return await this.post("/bids", bidData);
     }

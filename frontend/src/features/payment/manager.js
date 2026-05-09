@@ -1,11 +1,11 @@
-import BaseManager from '@/src/base/BaseManager';
+import DataValidator from '@/src/base/DataValidator';
 import PaymentRepo from './repo';
 
 /**
  * PaymentManager - Ödeme İş Mantığı Katmanı
  * Controller'dan gelen verileri doğrular ve Repo üzerinden API çağrılarını yönetir.
  */
-export default class PaymentManager extends BaseManager {
+export default class PaymentManager extends DataValidator {
   constructor() {
     super();
     this.repo = new PaymentRepo();

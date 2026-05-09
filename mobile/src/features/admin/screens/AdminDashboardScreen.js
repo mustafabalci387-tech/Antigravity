@@ -11,7 +11,7 @@ import {
     Alert,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import BaseService from '../../../base/services/BaseService';
+import ApiService from '../../../base/services/ApiService';
 import { colors } from '../../../core/theme/colors';
 
 const { width: EKRAN_GENISLIGI } = Dimensions.get('window');
@@ -97,12 +97,12 @@ export default function AdminDashboardScreen() {
     const fetchIstatistikler = async () => {
         try {
             setHata(null);
-            const data = await BaseService.get('/admin/istatistikler');
+            const data = await ApiService.get('/admin/istatistikler');
             setIstatistikler(data);
 
             // Kullanıcı listesini çek (Yetkilendirme tablosu için)
             try {
-                const kullanicilarRes = await BaseService.get('/users');
+                const kullanicilarRes = await ApiService.get('/users');
                 const kullanicilarData = kullanicilarRes?.users || kullanicilarRes || [];
                 setKullanicilar(Array.isArray(kullanicilarData) ? kullanicilarData : []);
             } catch (e) {
@@ -127,7 +127,7 @@ export default function AdminDashboardScreen() {
     const handleRolDegistir = async (userId, yeniRol) => {
         try {
             setRolGuncelleLoading(userId);
-            await BaseService.patch('/admin/kullanici-rol', {
+            await ApiService.patch('/admin/kullanici-rol', {
                 user_id: userId,
                 yeni_rol: yeniRol,
             });
@@ -159,7 +159,7 @@ export default function AdminDashboardScreen() {
                     style: 'destructive',
                     onPress: async () => {
                         try {
-                            await BaseService.delete(`/users/${kulId}`);
+                            await ApiService.delete(`/users/${kulId}`);
                             setKullanicilar(prev => prev.filter(k => (k.id || k._id) !== kulId));
                             Alert.alert('Başarılı 🗑️', `"${kulAd}" kullanıcısı silindi.`);
                         } catch (err) {

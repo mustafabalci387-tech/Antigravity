@@ -1,8 +1,8 @@
 /**
  * userService.js — Kullanıcı işlemleri servisi.
  */
-import BaseService from "@/src/base/services/BaseService";
-class UserService extends BaseService {
+import ApiService from "@/src/base/services/ApiService";
+class UserService extends ApiService {
     static async getAllUsers(params = {}) {
         const data = await this.get("/users", params);
         // Gelen verinin içerisindeki 'users' array'ini çıkarıyoruz.

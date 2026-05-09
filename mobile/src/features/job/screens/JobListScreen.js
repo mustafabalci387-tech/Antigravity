@@ -26,7 +26,7 @@ export default function JobListScreen({ navigation }) {
       setError(null);
       const response = await jobService.getAll();
 
-      // BaseService (mobile/src/services/BaseService.js) veriyi zaten ayıklıyor (response.data?.data)
+      // ApiService (mobile/src/services/ApiService.js) veriyi zaten ayıklıyor (response.data?.data)
       const jobsData = response?.jobs || (Array.isArray(response) ? response : []);
       setJobs(jobsData);
     } catch (err) {

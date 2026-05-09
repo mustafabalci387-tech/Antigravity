@@ -1,5 +1,5 @@
-import BaseService from "@/src/base/services/BaseService";
-class PortfolioService extends BaseService {
+import ApiService from "@/src/base/services/ApiService";
+class PortfolioService extends ApiService {
   static async getUserPortfolio(userId) {
     return await this.get('/portfolio/user/' + userId);
   }

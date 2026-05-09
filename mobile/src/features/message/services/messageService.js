@@ -1,12 +1,12 @@
 // features/message/services/messageService.js
 // Mesajlaşma HTTP istekleri servisi.
 // Backend /api/messages endpoint'lerine istek atar.  
-import BaseService from '../../../base/services/BaseService';
+import ApiService from '../../../base/services/ApiService';
 
-class MessageService extends BaseService {
+class MessageService extends ApiService {
   static async getMyConversations() {
     const data = await this.get('/messages/conversations');
-    // Eğer BaseService sadece .data dönüyorsa ve içinde konusmalar varsa:
+    // Eğer ApiService sadece .data dönüyorsa ve içinde konusmalar varsa:
     return data?.konusmalar || data;
   }
 

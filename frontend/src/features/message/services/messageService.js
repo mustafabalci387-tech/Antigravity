@@ -3,8 +3,8 @@
  *
  * Backend /api/messages endpoint'lerine istek atar.
  */
-import BaseService from "@/src/base/services/BaseService";
-class MessageService extends BaseService {
+import ApiService from "@/src/base/services/ApiService";
+class MessageService extends ApiService {
     // Kullanıcının aktif olduğu konuşma odalarını listeler
     static async getMyConversations() {
         const data = await this.get("/messages/conversations");

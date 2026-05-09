@@ -2,7 +2,7 @@
  * paymentService.js — Ödeme (Payment) API Servisi
  * Backend /api/payments endpoint'lerine istek atar.
  *
- * BaseService'den miras alınan:
+ * ApiService'den miras alınan:
  *   - get, post, patch, delete (merkezi hata yönetimi dahil)
  *
  * Ödemeye özel metodlar:
@@ -15,8 +15,8 @@
  *   - getPaymentById             : Tek ödeme detayı
  *   - deletePayment              : Ödeme sil (admin)
  */
-import BaseService from "@/src/base/services/BaseService";
-class PaymentService extends BaseService {
+import ApiService from "@/src/base/services/ApiService";
+class PaymentService extends ApiService {
     /**
      * Yeni ödeme oluştur (İşveren/Admin)
      * @param {Object} paymentData - { ilan_id, freelancer_id, tutar, aciklama?, odeme_yontemi?, islem_notu? }

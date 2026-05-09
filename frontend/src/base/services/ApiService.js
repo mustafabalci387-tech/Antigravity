@@ -1,5 +1,5 @@
 /**
- * BaseService.js — Merkezi API istek ve hata yönetimi sınıfı.
+ * ApiService.js — Merkezi API istek ve hata yönetimi sınıfı.
  * 
  * Tüm servisler bu yapıyı kullanarak API isteklerini yönetir.
  * Gelen response içerisindeki 'data.data' yapısını otomatik ayıklar
@@ -7,7 +7,7 @@
  */
 import api from "../../../config/api";
 
-class BaseService {
+class ApiService {
     /**
      * GET İsteği
      */
@@ -16,7 +16,7 @@ class BaseService {
             const response = await api.get(url, { params });
             return response.data?.data !== undefined ? response.data.data : response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -29,7 +29,7 @@ class BaseService {
             const response = await api.post(url, data, config);
             return response.data?.data !== undefined ? response.data.data : response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -42,7 +42,7 @@ class BaseService {
             const response = await api.put(url, data, config);
             return response.data?.data !== undefined ? response.data.data : response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -55,7 +55,7 @@ class BaseService {
             const response = await api.patch(url, data, config);
             return response.data?.data !== undefined ? response.data.data : response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -68,7 +68,7 @@ class BaseService {
             const response = await api.delete(url, config);
             return response.data?.data !== undefined ? response.data.data : response.data;
         } catch (error) {
-            BaseService.handleError(error);
+            ApiService.handleError(error);
             throw error;
         }
     }
@@ -79,10 +79,10 @@ class BaseService {
     static handleError(error) {
         // İsteğe bağlı olarak toast mesajları veya genel logging eklenebilir.
         console.error(
-            "[BaseService Error]:",
+            "[ApiService Error]:",
             error?.response?.data || error.message
         );
     }
 }
 
-export default BaseService;
+export default ApiService;

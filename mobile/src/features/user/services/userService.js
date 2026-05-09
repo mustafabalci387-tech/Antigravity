@@ -1,6 +1,6 @@
-import BaseService from '../../../base/services/BaseService';
+import ApiService from '../../../base/services/ApiService';
 
-class UserService extends BaseService {
+class UserService extends ApiService {
   static async getAll() {
     return await this.get('/users');
   }
