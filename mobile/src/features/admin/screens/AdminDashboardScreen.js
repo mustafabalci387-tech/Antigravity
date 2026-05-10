@@ -11,7 +11,7 @@ import {
     Alert,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import ApiService from '../../../base/services/ApiService';
+import ApiService from '../../../shared/services/ApiService';
 import { colors } from '../../../core/theme/colors';
 
 const { width: EKRAN_GENISLIGI } = Dimensions.get('window');

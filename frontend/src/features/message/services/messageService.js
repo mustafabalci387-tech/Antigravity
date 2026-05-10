@@ -3,7 +3,7 @@
  *
  * Backend /api/messages endpoint'lerine istek atar.
  */
-import ApiService from "@/src/base/services/ApiService";
+import ApiService from "@/src/shared/services/ApiService";
 class MessageService extends ApiService {
     // Kullanıcının aktif olduğu konuşma odalarını listeler
     static async getMyConversations() {

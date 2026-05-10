@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { AppCard, AppButton, AppChip } from '../../../base/components';
+import { AppCard, AppButton, AppChip } from '../../../shared/components';
 import { colors } from '../../../core/theme/colors';
 
 export default function HomeScreen({ navigation }) {

@@ -4,7 +4,7 @@ import jobService from '../services/jobService';
 import bidService from '../../bid/services/bidService';
 import { userService } from '../../user/services/userService';
 import * as SecureStore from 'expo-secure-store';
-import { showToast, showErrorToast, showSuccessToast } from '../../../base/utils/toast';
+import { showToast, showErrorToast, showSuccessToast } from '../../../shared/utils/toast';
 
 export default function useJobDetail(jobId, navigation) {
   const [user, setUser] = useState(null);

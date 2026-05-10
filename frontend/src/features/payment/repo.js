@@ -1,5 +1,5 @@
-import DataFetcher from '@/src/base/DataFetcher';
-import ApiService from '@/src/base/services/ApiService';
+import DataFetcher from '@/src/shared/DataFetcher';
+import ApiService from '@/src/shared/services/ApiService';
 
 /**
  * PaymentRepo - Ödeme Veri Erişim Katmanı

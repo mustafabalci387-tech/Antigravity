@@ -15,7 +15,7 @@ import {
 import UserService from '@/src/features/user/services/userService';
 import portfolioService from '@/src/features/portfolio/services/portfolioService';
 import { useParams, useRouter } from "next/navigation";
-import { showToast, showErrorToast } from '@/src/base/utils/toast';
+import { showToast, showErrorToast } from '@/src/shared/utils/toast';
 
 export default function ProfilePage() {
   const { id } = useParams();

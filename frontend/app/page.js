@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import JobService from '@/src/features/job/services/jobService';
 import AuthService from '@/src/features/auth/services/authService';
-import BaseService from '@/src/base/services/BaseService';
+import ApiService from '@/src/shared/services/ApiService';
 import NotificationService from '@/src/features/notification/services/notificationService';
 
 export default function HomePage() {

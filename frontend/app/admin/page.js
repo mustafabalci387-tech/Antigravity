@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardBody, CardHeader, Spinner, Chip } from "@heroui/react";
 import AuthService from '@/src/features/auth/services/authService';
-import BaseService from '@/src/base/services/BaseService';
+import ApiService from '@/src/shared/services/ApiService';
 
 export default function AdminDashboardPage() {
     const [user, setUser] = useState(null);

@@ -14,8 +14,8 @@ import Link from "next/link";
 import JobService from '@/src/features/job/services/jobService';
 import AuthService from '@/src/features/auth/services/authService';
 import BidService from '@/src/features/bid/services/bidService';
-import { showToast, showErrorToast } from '@/src/base/utils/toast';
-import { formatDate } from '@/src/base/utils/dateFormatter';
+import { showToast, showErrorToast } from '@/src/shared/utils/toast';
+import { formatDate } from '@/src/shared/utils/dateFormatter';
 
 export default function JobDetailPage() {
     const router = useRouter();

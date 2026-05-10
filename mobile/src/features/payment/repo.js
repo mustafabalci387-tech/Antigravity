@@ -1,5 +1,5 @@
-import DataFetcher from '../../base/DataFetcher';
-import ApiService from '../../base/services/ApiService';
+import DataFetcher from '../../shared/DataFetcher';
+import ApiService from '../../shared/services/ApiService';
 
 /**
  * PaymentRepo - Mobil Veri Erişim Katmanı

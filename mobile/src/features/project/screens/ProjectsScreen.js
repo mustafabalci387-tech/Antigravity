@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { AppCard } from '../../../base/components';
+import { AppCard } from '../../../shared/components';
 import { colors } from '../../../core/theme/colors';
 
 export default function ProjectsScreen() {

@@ -13,12 +13,12 @@ import {
 } from 'react-native';
 // Daha hassas güvenli alan kontrolü için SafeAreaView
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppCard, AppButton, AppChip } from '../../../base/components';
+import { AppCard, AppButton, AppChip } from '../../../shared/components';
 import { colors } from '../../../core/theme/colors';
 import jobService from '../services/jobService';
 import authService from '../../auth/services/authService';
 import { useNavigation } from '@react-navigation/native';
-import { showToast, showErrorToast, showSuccessToast } from '../../../base/utils/toast';
+import { showToast, showErrorToast, showSuccessToast } from '../../../shared/utils/toast';
 
 export default function JobsScreen() {
   const [jobs, setJobs] = useState([]);

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import NotificationService from '@/src/features/notification/services/notificationService';
 import AuthService from '@/src/features/auth/services/authService';
-import { formatDate } from '@/src/base/utils/dateFormatter';
+import { formatDate } from '@/src/shared/utils/dateFormatter';
 
 export default function NotificationsPage() {
     const [user, setUser] = useState(null);

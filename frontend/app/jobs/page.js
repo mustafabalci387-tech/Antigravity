@@ -14,7 +14,7 @@ import Link from "next/link";
 import JobService from '@/src/features/job/services/jobService';
 import AuthService from '@/src/features/auth/services/authService';
 import NotificationService from '@/src/features/notification/services/notificationService';
-import { showToast, showErrorToast } from '@/src/base/utils/toast';
+import { showToast, showErrorToast } from '@/src/shared/utils/toast';
 
 export default function JobsPage() {
     const [user, setUser] = useState(null);

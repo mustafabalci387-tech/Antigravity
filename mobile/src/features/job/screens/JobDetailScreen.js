@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { colors } from '../../../core/theme/colors';
-import { formatDate } from '../../../base/utils/dateFormatter';
+import { formatDate } from '../../../shared/utils/dateFormatter';
 
 // Refactored Hooks & Components
 import useJobDetail from '../hooks/useJobDetail';

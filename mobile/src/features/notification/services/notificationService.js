@@ -1,4 +1,4 @@
-import ApiService from "../../../base/services/ApiService";
+import ApiService from "../../../shared/services/ApiService";
 
 class NotificationService extends ApiService {
     static async getMyNotifications() {

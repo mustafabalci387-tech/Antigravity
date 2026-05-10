@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import AuthService from '@/src/features/auth/services/authService';
-import { showToast } from '@/src/base/utils/toast';
+import { showToast } from '@/src/shared/utils/toast';
 
 export default function RegisterPage() {
     const [ad, setAd] = useState("");

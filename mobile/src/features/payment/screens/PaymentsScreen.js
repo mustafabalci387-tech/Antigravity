@@ -26,8 +26,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import paymentService from '../services/paymentService';
 import authService from '../../auth/services/authService';
-import { showSuccessToast, showErrorToast } from '../../../base/utils/toast';
-import { formatDate } from '../../../base/utils/dateFormatter';
+import { showSuccessToast, showErrorToast } from '../../../shared/utils/toast';
+import { formatDate } from '../../../shared/utils/dateFormatter';
 import PaymentManager from '../manager';
 
 const ODEME_DURUM = {

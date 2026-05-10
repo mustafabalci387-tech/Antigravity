@@ -14,7 +14,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import { AppButton } from '../../../base/components';
+import { AppButton } from '../../../shared/components';
 import { colors } from '../../../core/theme/colors';
 import authService from '../services/authService';
 

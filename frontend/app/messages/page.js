@@ -6,7 +6,7 @@ import MessageService from '@/src/features/message/services/messageService';
 import { useSocket } from "@/src/features/message/hooks/useSocket";
 import AuthService from '@/src/features/auth/services/authService';
 import UserService from "@/src/features/user/services/userService";
-import { showToast, showErrorToast } from '@/src/base/utils/toast';
+import { showToast, showErrorToast } from '@/src/shared/utils/toast';
 import { useRouter } from "next/navigation"; // Added useRouter for navigation
 
 export default function MessagesPage() {

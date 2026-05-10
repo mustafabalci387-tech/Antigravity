@@ -13,8 +13,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import NotificationService from '../services/notificationService';
 
 // 🔥 Doğru import yolları senin klasör yapına göre (core alt klasörü eklendi):
-import { showToast } from '../../../base/utils/toast';
-import { formatDate } from '../../../base/utils/dateFormatter';
+import { showToast } from '../../../shared/utils/toast';
+import { formatDate } from '../../../shared/utils/dateFormatter';
 
 export default function NotificationsScreen() {
   const [notifications, setNotifications] = useState([]);

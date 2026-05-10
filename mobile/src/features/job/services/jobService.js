@@ -1,7 +1,7 @@
 // features/job/services/jobService.js
 // İş ilanları için API servisi
 // Backend'deki /api/jobs endpoint'leri ile iletişim kurar
-import ApiService from '../../../base/services/ApiService';
+import ApiService from '../../../shared/services/ApiService';
 
 class JobService extends ApiService {
   static async getAll(params = {}) {

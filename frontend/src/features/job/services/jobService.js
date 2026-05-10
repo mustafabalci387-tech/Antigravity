@@ -1,4 +1,4 @@
-import ApiService from "../../../base/services/ApiService";
+import ApiService from "../../../shared/services/ApiService";
 class JobService extends ApiService {
     /**
      * İlanları listele (sayfalama ve filtre parametreleriyle)

@@ -1,4 +1,4 @@
-import DataValidator from '@/src/base/DataValidator';
+import DataValidator from '@/src/shared/DataValidator';
 import PaymentRepo from './repo';
 
 /**

@@ -8,7 +8,7 @@
  *   DELETE /api/payment/user-payments/clear → Tüm ödeme geçmişini siler
  *   DELETE /api/payment/{payment_id}       → Tek ödeme siler
  */
-import ApiService from '../../../base/services/ApiService';
+import ApiService from '../../../shared/services/ApiService';
 
 class PaymentService extends ApiService {
     /**

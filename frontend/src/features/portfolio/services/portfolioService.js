@@ -1,4 +1,4 @@
-import ApiService from "@/src/base/services/ApiService";
+import ApiService from "@/src/shared/services/ApiService";
 class PortfolioService extends ApiService {
   static async getUserPortfolio(userId) {
     return await this.get('/portfolio/user/' + userId);

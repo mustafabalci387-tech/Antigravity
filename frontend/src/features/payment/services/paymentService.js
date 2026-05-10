@@ -15,7 +15,7 @@
  *   - getPaymentById             : Tek ödeme detayı
  *   - deletePayment              : Ödeme sil (admin)
  */
-import ApiService from "@/src/base/services/ApiService";
+import ApiService from "@/src/shared/services/ApiService";
 class PaymentService extends ApiService {
     /**
      * Yeni ödeme oluştur (İşveren/Admin)

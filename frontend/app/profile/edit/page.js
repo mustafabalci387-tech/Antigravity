@@ -14,7 +14,7 @@ import {
 } from "@heroui/react";
 import UserService from '@/src/features/user/services/userService';
 import { useRouter } from "next/navigation";
-import { showToast, showErrorToast } from '@/src/base/utils/toast';
+import { showToast, showErrorToast } from '@/src/shared/utils/toast';
 
 export default function EditProfilePage() {
   const router = useRouter();

@@ -4,8 +4,8 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import AuthService from '@/src/features/auth/services/authService';
 import PaymentService from '@/src/features/payment/services/paymentService';
-import { showToast } from '@/src/base/utils/toast';
-import { formatDate } from '@/src/base/utils/dateFormatter';
+import { showToast } from '@/src/shared/utils/toast';
+import { formatDate } from '@/src/shared/utils/dateFormatter';
 import { Chip, Spinner, Divider } from "@heroui/react";
 import PaymentController from '@/src/features/payment/controller';
 

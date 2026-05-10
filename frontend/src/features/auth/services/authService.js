@@ -7,7 +7,7 @@
  * → Login, Register, Logout, getCurrentUser işlemleri.
  */
 
-import ApiService from "../../../base/services/ApiService";
+import ApiService from "../../../shared/services/ApiService";
 class AuthService extends ApiService {
     // Kayıt ol
     static async register(data) {
