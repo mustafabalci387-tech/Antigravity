@@ -26,7 +26,7 @@ export default function PaymentsPage() {
         try {
             if (PaymentService && typeof PaymentService.getUserPayments === "function") {
                 const response = await PaymentService.getUserPayments();
-                // BaseService zaten response.data.data katmanını ayıklıyor.
+                // ApiService zaten response.data.data katmanını ayıklıyor.
                 // Gelecek veri doğrudan bir dizidir (Array).
                 setPayments(response || []);
             }

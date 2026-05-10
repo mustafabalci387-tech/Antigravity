@@ -31,14 +31,14 @@ export default function AdminDashboardPage() {
                 setUser(currentUser);
 
                 // 2. Backend'den istatistikleri çek
-                const response = await BaseService.get("/admin/istatistikler");
+                const response = await ApiService.get("/admin/istatistikler");
 
                 // Yanıt yapısını esnek şekilde parse et
                 const cleanData = response?.data || response;
                 setIstatistikler(cleanData);
 
                 // 3. Kullanıcı listesini çek (Yetkilendirme tablosu için)
-                const kullanicilarRes = await BaseService.get("/users");
+                const kullanicilarRes = await ApiService.get("/users");
                 const kullanicilarData = kullanicilarRes?.users || kullanicilarRes || [];
                 setKullanicilar(Array.isArray(kullanicilarData) ? kullanicilarData : []);
 
@@ -58,7 +58,7 @@ export default function AdminDashboardPage() {
     const handleRolDegistir = async (userId, yeniRol) => {
         try {
             setRolGuncelleLoading(userId);
-            await BaseService.patch("/admin/kullanici-rol", {
+            await ApiService.patch("/admin/kullanici-rol", {
                 user_id: userId,
                 yeni_rol: yeniRol,
             });
@@ -84,7 +84,7 @@ export default function AdminDashboardPage() {
         if (!window.confirm("Bu kullanıcıyı silmek istediğinize emin misiniz?")) return;
 
         try {
-            await BaseService.delete(`/users/${userId}`);
+            await ApiService.delete(`/users/${userId}`);
             // Tablodan sil
             setKullanicilar(prev => prev.filter(k => (k.id || k._id) !== userId));
             alert("Kullanıcı başarıyla silindi.");

@@ -33,7 +33,7 @@ export default function HomePage() {
 
       // 2. Backend'den güncel kullanıcı verisini çek (Token üzerinden)
       try {
-        const freshUser = await BaseService.get("/auth/me");
+        const freshUser = await ApiService.get("/auth/me");
         if (freshUser) {
           setUser(freshUser);
           // sessionStorage'ı da güncelle (diğer sayfalar için)
