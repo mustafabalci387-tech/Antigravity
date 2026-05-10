@@ -2,7 +2,7 @@
  * bidService.js — Teklif (Bidding) API Servisi
  * Backend /api/bids endpoint'lerine istek atar.
  */
-import ApiService from '../../../shared/services/ApiService';
+import ApiService from "../../../shared/services/ApiService";
 
 class BidService extends ApiService {
     static async createBid(bidData) {
