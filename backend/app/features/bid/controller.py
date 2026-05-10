@@ -11,7 +11,6 @@ from fastapi import HTTPException
 router = APIRouter(prefix="/api/bids", tags=["Bids"])
 bid_service = BidService()
 job_service = JobService()
-
 @router.post("/")
 async def post_bid(
     body: BidCreate,
