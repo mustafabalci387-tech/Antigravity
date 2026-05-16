@@ -131,8 +131,8 @@ async def get_istatistikler(admin: dict = Depends(require_admin)):
             "teklifler": {
                 "toplam": sonuclar[8],
                 "son_7_gun_yeni_teklif": sonuclar[9],
-                "ortalama_teklif_tutari": round(sonuclar[10].get("ortalama", 0), 2),
-                "toplam_teklif_tutari": sonuclar[10].get("toplam", 0),
+                "ortalama_teklif_tutari": round(sonuclar[10].get("ortalama", 0) or 0, 2),
+                "toplam_teklif_tutari": sonuclar[10].get("toplam", 0) or 0,
             },
             "odemeler": {
                 "toplam": sonuclar[11],
