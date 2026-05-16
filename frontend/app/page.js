@@ -154,11 +154,11 @@ export default function HomePage() {
             </p>
           </Link>
 
-          <div className="hover-card bg-white p-8 rounded-2xl shadow-md border border-gray-100 opacity-60">
-            <span className="text-4xl block mb-4">📋</span>
-            <h3 className="text-xl font-bold text-gray-800">Projeler</h3>
-            <p className="text-gray-500 text-sm mt-2">Proje takibi — Yakında</p>
-          </div>
+          <Link href="/projects" className="hover-card bg-white p-8 rounded-2xl shadow-md border border-gray-100 group">
+            <span className="text-4xl block mb-4 icon-pulse">📋</span>
+            <h3 className="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors">Projeler</h3>
+            <p className="text-gray-500 text-sm mt-2">Aktif ve tamamlanan projelerinizi takip edin.</p>
+          </Link>
 
           <Link href="/messages" className="hover-card bg-white p-8 rounded-2xl shadow-md border border-gray-100 group">
             <span className="text-4xl block mb-4 icon-pulse">💬</span>

@@ -25,6 +25,7 @@ from app.features.portfolio.controller import router as portfolio_router
 from app.features.notification.controller import router as notification_router
 from app.features.payment.controller import router as payment_router
 from app.features.admin.controller import router as admin_router
+from app.features.project.router import router as project_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -62,6 +63,7 @@ app.include_router(portfolio_router)
 app.include_router(notification_router)
 app.include_router(payment_router, prefix="/api")
 app.include_router(admin_router)
+app.include_router(project_router)
 
 @app.get("/")
 async def root():

@@ -6,6 +6,7 @@ from app.features.bid.manager import BidManager
 from app.features.notification.service import NotificationService
 from app.core.email import EmailService
 from app.features.user.service import UserService
+from app.features.project.service import ProjectService
 
 class BidService(BaseService):
     """
@@ -83,5 +84,22 @@ class BidService(BaseService):
                 from app.features.job.service import JobService
                 job_svc = JobService()
                 await job_svc.update_job_status(str(ilan_id), "devam_ediyor")
-                
+
+                # ══════════════════════════════════════════════════
+                # 3. MODÜLLER ARASI BAĞLANTI: Otomatik Proje Kaydı
+                # BidService -> ProjectService.create_project zinciri
+                # Hocanın ses kaydındaki kritik entegrasyon noktası
+                # ══════════════════════════════════════════════════
+                job = await job_svc.get_job(str(ilan_id))
+                project_svc = ProjectService()
+                await project_svc.create_project({
+                    "ilan_id": str(ilan_id),
+                    "freelancer_id": str(freelancer_id),
+                    "client_id": str(job.get("is_veren_id")) if job else "",
+                    "baslik": job.get("ad", "Proje") if job else "Proje",
+                    "butce": updated_bid.get("fiyat", 0),
+                    "teslim_tarihi": job.get("bitis_tarihi") if job else None,
+                    "durum": "devam_ediyor"
+                })
+
         return updated_bid

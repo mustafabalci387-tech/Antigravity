@@ -1,14 +1,14 @@
 /**
- * projectService.js — Mobil Proje Takibi API Servisi
+ * projectService.js — Proje Takibi API Servisi
  *
  * Backend /api/projects endpoint'lerine istek atar.
  * Merkezi ApiService'i miras alarak hata yönetimi ve
  * response ayıklama işlemlerini otomatik devralır.
  *
  * Kullanım Zinciri:
- *   Screen → ProjectService → ApiService → api (axios)
+ *   Component → ProjectService → ApiService → api (axios)
  */
-import ApiService from '../../../shared/services/ApiService';
+import ApiService from "../../../shared/services/ApiService";
 
 class ProjectService extends ApiService {
     /**
@@ -19,7 +19,7 @@ class ProjectService extends ApiService {
      * @returns {Promise<Object>} { projects: [...] }
      */
     static async getMyProjects() {
-        return await this.get('/projects');
+        return await this.get("/projects");
     }
 
     /**
@@ -47,12 +47,4 @@ class ProjectService extends ApiService {
     }
 }
 
-// Geriye dönük uyumluluk (eski ekranlar object literal bekleyebilir):
-const projectService = {
-    getAll: (params) => ProjectService.getMyProjects(params),
-    getById: (id) => ProjectService.getProjectById(id),
-    updateStatus: (id, durum) => ProjectService.updateProjectStatus(id, durum),
-};
-
-export default projectService;
-export { ProjectService };
+export default ProjectService;
